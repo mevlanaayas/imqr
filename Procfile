@@ -1,1 +1,1 @@
-web: gunicorn imqr.wsgi --log-file -
+web: gunicorn imgqr.wsgi --log-file -

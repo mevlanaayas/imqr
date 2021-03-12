@@ -24,7 +24,7 @@ SECRET_KEY = "my_secret_key"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [".imqr.org"]
+ALLOWED_HOSTS = [".imqr.org", "localhost", "imqr.herokuapp.com"]
 
 # Application definition
 
@@ -120,5 +120,5 @@ QR_CODE_DETAIL_VERSION = 10
 
 FILE_UPLOAD_TEMP_DIR = BASE_DIR / "files/qr"
 
-import django_heroku
-django_heroku.settings(locals())
+# import django_heroku
+# django_heroku.settings(locals())

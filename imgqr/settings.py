@@ -12,6 +12,19 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+"""env file reading and exporting data as an os.environ variables"""
+try:
+    with open('.env') as f:
+        content = f.read()
+        contents = content.split('\n')
+        for con in contents:
+            if con == '':
+                continue
+            key, value = con.split('=')
+            os.environ.setdefault(key, value)
+except IOError:
+    content = ''
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "my_secret_key"
+SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -120,5 +133,6 @@ QR_CODE_DETAIL_VERSION = 10
 
 FILE_UPLOAD_TEMP_DIR = BASE_DIR / "files/qr"
 
-# import django_heroku
-# django_heroku.settings(locals())
+import django_heroku
+
+django_heroku.settings(locals(), allowed_hosts=False, secret_key=False)

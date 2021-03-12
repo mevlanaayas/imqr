@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asgiref = "==3.3.1"
+dj-database-url = "==0.5.0"
+django-heroku = "==0.3.1"
+imageio = "==2.9.0"
+numpy = "==1.19.5"
+psycopg2 = "==2.8.6"
+pytz = "==2021.1"
+sqlparse = "==0.4.1"
+whitenoise = "==5.2.0"
+Django = "==3.1.7"
+MyQR = "==2.3.1"
+Pillow = "==8.1.2"
+PyJWT = "==2.0.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

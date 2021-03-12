@@ -1,0 +1,1 @@
+web: gunicorn imqr.wsgi --log-file -

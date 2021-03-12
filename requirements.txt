@@ -1,0 +1,9 @@
+asgiref==3.3.1
+Django==3.1.7
+imageio==2.9.0
+MyQR==2.3.1
+numpy==1.20.1
+Pillow==8.1.2
+PyJWT==2.0.1
+pytz==2021.1
+sqlparse==0.4.1

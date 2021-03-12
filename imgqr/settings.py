@@ -18,7 +18,7 @@ try:
         content = f.read()
         contents = content.split('\n')
         for con in contents:
-            if con is '':
+            if con == '':
                 continue
             key, value = con.split('=')
             os.environ.setdefault(key, value)
@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
     'rest',
 ]
 

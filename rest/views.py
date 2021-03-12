@@ -83,7 +83,9 @@ def detail(request, file_id):
     with open(qr.url, "rb") as image_file:
         image = base64.b64encode(image_file.read()).decode('utf-8')
 
-    return render(request, 'rest/detail.html', {'file_id': file_id, 'owner': owner, 'image': image})
+    count = QR.objects.filter(user=user_id).count()
+
+    return render(request, 'rest/detail.html', {'file_id': file_id, 'owner': owner, 'image': image, 'count': count})
 
 
 def upload(request):
@@ -105,11 +107,11 @@ def upload(request):
     qr, content_type = create(image, data)
     QR.objects.create(user=user_id, qr=qr, content_type=content_type)
 
-    return HttpResponseRedirect(reverse('rest:index'))
+    return HttpResponseRedirect(reverse('rest:library'))
 
 
 def delete(request, file_id):
-    if request.method != "DELETE":
+    if request.method != "GET":
         return HttpResponse("Unsupported method %s" % request.method)
 
     client_cookie = request.COOKIES.get("client")
@@ -123,7 +125,7 @@ def delete(request, file_id):
 
     qr = QR.objects.filter(qr=file_id, user=user_id)
     if qr.count() == 1:
-        # TODO: delete file from filesystem
+        os.remove(qr.url)
         qr.delete()
         return HttpResponseRedirect(reverse('rest:index'))
     else:

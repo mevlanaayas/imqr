@@ -1,0 +1,67 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'rest/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Imqr | QR</title>
+    <link rel="icon" href="{% static 'rest/images/imqr.png' %}"
+          type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://imqr.org">
+            <img src="{% static 'rest/images/imqr.png' %}" width="32" height="38">
+            <span class="title">Imqr</span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+            {% if owner %}
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-danger" href="{% url 'rest:delete' file_id %}">
+                            <strong>Delete</strong>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'rest:library' %}">
+                        <strong>Your QRs {{ 1 }}</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <section class="section">
+        <img src="data:image/png;base64,{{ image }}" style="width: 500px">
+    </section>
+</div>
+<footer class="footer" style="position: fixed; bottom: 0; left: 0; right: 0">
+    <div class="content has-text-centered">
+        <p>
+            <strong>❤️Imqr</strong> by <a href="https://github.com/mevlanaayas">trabz</a>. You can find source codes at
+            <a
+                    href="https://github.com/mevlanaayas/imqr">Github</a>.
+        </p>
+    </div>
+</footer>
+</body>
+</html>

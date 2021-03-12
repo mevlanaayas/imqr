@@ -1,0 +1,227 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'rest/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Imqr</title>
+    <link rel="icon" href="{% static 'rest/images/imqr.png' %}"
+          type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="https://imqr.org">
+            <img src="{% static 'rest/images/imqr.png' %}" width="32" height="38">
+            <span class="title">Imqr</span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'rest:library' %}">
+                        <strong>Your QRs {{ qr_uploaded }}</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <section class="section is-medium">
+        <h1 class="title is-1">Imqr - Create customized QRs</h1>
+        <h2 class="subtitle">
+            Load images to contain your data as a QR Codes
+        </h2>
+
+    </section>
+    <section class="section">
+        <div class="columns is-mobile">
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop is-one-third-widescreen is-one-quarter-fullhd">
+                <h1 class="title">Upload an image</h1>
+
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+                <form action="{% url 'rest:upload' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="field block">
+                        <div class="control">
+                            <input class="input is-info" type="text" name="data" placeholder="Data input">
+                        </div>
+                    </div>
+
+                    <div id="file-input" class="file has-name is-info is-fullwidth block">
+                        <label class="file-label">
+                            <input class="file-input" accept="image/png, image/jpeg, image/gif" type="file"
+                                   name="image">
+                            <span class="file-cta">
+                      <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                          Choose a image
+                      </span>
+                    </span>
+                            <span class="file-name">
+                        No file uploaded
+                    </span>
+                        </label>
+                    </div>
+
+                    <div class="field is-grouped block">
+                        <div class="control">
+                            <button type="submit" class="button is-link">Upload</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section is-medium">
+        <h1 class="title is-4 is-centered">Simple and fast Qr Code sharing</h1>
+        <h2 class="subtitle is-5">
+            Imqr is the best way to create and share your image-maiden Qr codes. It supports images of the formats JPG,
+            PNG, GIF.
+        </h2>
+
+        <div class="columns is-4 is-multiline is-mobile mb-6 pb-6">
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                    <i class="far fa-chart-bar"></i>
+                </span>
+                <div class="feature-text">
+                    <h3>Analytics, not Google one</h3>
+                    <p>
+                        See how many viewers your image has had.
+                    </p>
+                </div>
+            </div>
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                    <i class="fas fa-history"></i>
+                </span>
+                <div class="feature-text">
+                    <h3>Stored Forever, Deleted on demand</h3>
+                    <p>
+                        Images that you upload will never expire on the website. You will be able to delete them as you
+                        wish
+                    </p>
+                </div>
+            </div>
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </span>
+                <div class="feature-text">
+                    <h3>Mobile Friendly</h3>
+                    <p>
+                        Upload from your stored photos or capture a new one without leaving the website.
+                    </p>
+                </div>
+            </div>
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                    <i class="far fa-clipboard"></i>
+                </span>
+                <div>
+                    <h3>Copy &amp; Paste</h3>
+                    <p>
+                        Insert images directly from your clipboard.
+                    </p>
+                </div>
+            </div>
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                   <i class="fas fa-user-secret"></i>
+                </span>
+                <div class="feature-text">
+                    <h3>Anonymity</h3>
+                    <p>
+                        Decide who you share your images with. Uploads are hardly discoverable by themselves.
+                    </p>
+                </div>
+            </div>
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                    <i class="fas fa-dragon"></i>
+                </span>
+                <div class="feature-text">
+                    <h3>Drag &amp; Drop</h3>
+                    <p>
+                        Drag and drop files from your computer.
+                    </p>
+                </div>
+            </div>
+            <div class="column is-four-fifths-mobile is-two-thirds-tablet is-two-fifths-desktop">
+                <span class="icon">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <div class="feature-text">
+                    <h3>Express Yourself</h3>
+                    <p>
+                        Add a title and description to provide more context to your images.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<footer class="footer" style="position: fixed; bottom: 0; left: 0; right: 0">
+    <div class="content has-text-centered">
+        <p>
+            <strong>❤️Imqr</strong> by <a href="https://github.com/mevlanaayas">trabz</a>. You can find source codes at <a
+                href="https://github.com/mevlanaayas/imqr">Github</a>.
+        </p>
+    </div>
+</footer>
+<script>
+    const fileInput = document.querySelector('#file-input input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-input .file-name');
+            fileName.textContent = fileInput.files[0].name;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+            // Add a click event on each of them
+            $navbarBurgers.forEach(el => {
+                el.addEventListener('click', () => {
+
+                    // Get the target from the "data-target" attribute
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                });
+            });
+        }
+
+    });
+</script>
+</body>
+</html>

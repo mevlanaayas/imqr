@@ -31,6 +31,11 @@
         <div class="navbar-end">
             {% if owner %}
                 <div class="navbar-item">
+                    <span class="tag is-info">Views: {{ view_count }}</span>
+                </div>
+            {% endif %}
+            {% if owner %}
+                <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-danger" href="{% url 'rest:delete' file_id %}">
                             <strong>Delete</strong>
@@ -41,7 +46,7 @@
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary" href="{% url 'rest:library' %}">
-                        <strong>Your QRs {{ count }}</strong>
+                        <strong>Your QRs: {{ count }}</strong>
                     </a>
                 </div>
             </div>

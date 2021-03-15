@@ -37,7 +37,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [".imqr.org", "localhost", "imqr.herokuapp.com"]
+ALLOWED_HOSTS = [".imqr.org", "localhost", "127.0.0.1", "imqr.herokuapp.com"]
 
 # Application definition
 

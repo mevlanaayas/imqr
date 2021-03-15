@@ -8,6 +8,7 @@ import uuid
 import jwt
 from MyQR import myqr
 from PIL import Image
+from django.db.models import Sum
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -30,7 +31,9 @@ def index(request):
 
     context = {
         'user': user_id,
-        'qr_uploaded': QR.objects.filter(user__exact=user_id).count()
+        'qr_uploaded': QR.objects.filter(user__exact=user_id).count(),
+        'total_views': QR.objects.aggregate(Sum('view_count')).get('view_count__sum') or 0,
+        'unique_users': QR.objects.values('user').distinct().count()
     }
 
     http_response = render(request, 'rest/index.html', context)
@@ -69,23 +72,29 @@ def library(request):
 def detail(request, file_id):
     client_cookie = request.COOKIES.get("client")
     user_id = ""
+    count = 0
     try:
         decode = jwt.decode(client_cookie, settings.SECRET_KEY, algorithms=["HS256"])
         user_id = decode["userId"]
     except Exception as _:
         pass
     owner = False
-    qr = QR.objects.get(qr=file_id)
-    if qr:
+    qr = QR.objects.filter(qr=file_id)
+    if qr.count() > 0:
+        qr = qr.first()
+        qr.view_count += 1
+        qr.save()
         if user_id == str(qr.user):
             owner = True
 
     with open(qr.url, "rb") as image_file:
         image = base64.b64encode(image_file.read()).decode('utf-8')
 
-    count = QR.objects.filter(user=user_id).count()
+    if user_id != "":
+        count = QR.objects.filter(user=user_id).count()
 
-    return render(request, 'rest/detail.html', {'file_id': file_id, 'owner': owner, 'image': image, 'count': count})
+    return render(request, 'rest/detail.html',
+                  {'file_id': file_id, 'owner': owner, 'image': image, 'count': count, 'view_count': qr.view_count})
 
 
 def upload(request):
@@ -105,7 +114,7 @@ def upload(request):
     image = request.FILES.get("image")
 
     qr, content_type = create(image, data)
-    QR.objects.create(user=user_id, qr=qr, content_type=content_type)
+    QR.objects.create(user=user_id, qr=qr, content_type=content_type, view_count=0)
 
     return HttpResponseRedirect(reverse('rest:library'))
 

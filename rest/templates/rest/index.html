@@ -30,9 +30,15 @@
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-end">
             <div class="navbar-item">
+                <span class="tag is-info">Total views: {{ total_views }}</span>
+            </div>
+            <div class="navbar-item">
+                <span class="tag is-info">Unique users: {{ unique_users }}</span>
+            </div>
+            <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-primary" href="{% url 'rest:library' %}">
-                        <strong>Your QRs {{ qr_uploaded }}</strong>
+                        <strong>Your QRs: {{ qr_uploaded }}</strong>
                     </a>
                 </div>
             </div>
@@ -46,6 +52,10 @@
         <h2 class="subtitle">
             Load images to contain your data as a QR Codes
         </h2>
+        <figure class="image is-128x128">
+            <img src="{% static 'rest/images/totoro.png' %}" alt="image based qr">
+        </figure>
+
 
     </section>
     <section class="section">
@@ -185,8 +195,9 @@
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
-            <strong>❤️Imqr</strong> by <a href="https://github.com/mevlanaayas">trabz</a>. You can find source codes at <a
-                href="https://github.com/mevlanaayas/imqr">Github</a>.
+            <strong>❤️Imqr</strong> by <a href="https://github.com/mevlanaayas">trabz</a>. You can find source codes at
+            <a
+                    href="https://github.com/mevlanaayas/imqr">Github</a>.
         </p>
     </div>
 </footer>

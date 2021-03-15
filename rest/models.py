@@ -10,7 +10,7 @@ class QR(Model):
     user = UUIDField()
     qr = UUIDField()
     content_type = CharField(max_length=4)
-    view_count = IntegerField()
+    view_count = IntegerField(default=0)
 
     @property
     def url(self):

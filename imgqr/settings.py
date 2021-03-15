@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = bool(os.getenv('DEBUG', False))
 
 ALLOWED_HOSTS = [".imqr.org", "localhost", "127.0.0.1", "imqr.herokuapp.com"]
 
